@@ -15,10 +15,7 @@
  */
 
 // Import Bootstrap
-@import 'bootstrap';
-@import 'buttons';
-@import 'search';
-@import 'charges';
-@import 'pagination';
-@import 'tables';
-@import 'items';
+@import "materialize";
+@import "materialize/extras/nouislider";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "charges";

@@ -9,8 +9,8 @@
     = javascript_include_tag 'application'
   %body
     = render partial: 'shared/navbar'
-    .col-md-12.main-view
-      - flash.each do |type, message|
-        = content_tag :div, sanitize(message), class: type == "notice" ? "alert alert-success" : "alert alert-warning" 
+    - flash.each do |type, message|
+      = javascript_tag "Materialize.toast('#{message}', 4000, 'rounded')"
+    .container
       = yield
     = render partial: 'shared/footer'

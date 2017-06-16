@@ -1,26 +1,35 @@
 <% @items.in_groups_of(4, false) do |group| %>
-  <div class="card-deck">
+  <div class="row">
     <% group.each do |item| %>
-      <div class="card">
-        <%= image_tag item.image.url(:thumbnail), height: "150", width: "150" %>
-        <div class="card-block">
-          <h4 class="card-title"><%= item.title %></h3>
-          <p class="card-text"><%= item.description %></p>
-          <p class="card-text">$<%= item.price %></p>
-        </div>
-        <div class="card-footer item_<%= item.id %>">
-          <%= link_to  "#{item.title}", category_item_path(item.category, item), class: "btn btn-success" %>
-          <% if item.retired? %>
-            <button type="button" disabled class: "btn">Item Retired</button>
-          <% else %>
-            <%= button_to "Add to Cart", carts_path(item_id: item.id), method: :post, class: "btn btn-default"%>
-          <% end %>
-          <% if current_admin? %>
-            <%= button_to "Edit Item", edit_admin_item_path(item), method: "get", class: "btn btn-warning"%>
-          <% end %>
+      <div class="col s12 m6 l3">
+        <div class="card sticky-action">
+          <div class="card-image waves-effect waves-block waves-light">
+            <%= image_tag item.image.url(:medium), class: "activator" %>
+          </div>
+          <span class="card-title activator"><%= item.title %><i class="material-icons right">more_vert</i><br></span>
+          <div class="card-content">
+            <%= number_to_currency(item.price) %>
+          </div>
+          <div class="card-action item_<%= item.id %>">
+            <%= link_to  "#{item.title}", category_item_path(item.category, item), class: "waves-effect waves-light btn" %>
+            <% if item.retired? %>
+              <a class="btn disabled">tem Retired</a>
+            <% else %>
+              <%= button_to "Add to Cart", carts_path(item_id: item.id), method: :post, class: "waves-effect waves-light btn"%>
+            <% end %>
+            <% if current_admin? %>
+              <%= button_to "Edit Item", edit_admin_item_path(item), method: "get", class: "waves-effect waves-light btn orange darken-4"%>
+            <% end %>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"><%= item.title %><i class="material-icons right">close</i></span>
+            <p><%= item.description %></p>
+            <p><%= number_to_currency(item.price) %></p>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
 <% end %>
+
 <%= will_paginate(@items, class: "flickr_pagination") %>

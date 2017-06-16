@@ -1,70 +1,68 @@
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="/">(brand image can go here) Little Shop</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<script>
+  $( document ).ready(function() {
+    $(".dropdown-button").dropdown();
+    $(".dropdown-button-2").dropdown();
+    $(".button-collapse").sideNav();
+  });
+</script>
+<!-- Dropdown Structure -->
+<ul id="dropdown-categories" class="dropdown-content">
+  <% @categories.each do |category| %>
+    <li><%= link_to category.title, category_path(category),  class: "dropdown-item"%></li>
+    <li class="divider"></li>
+  <% end %>
+</ul>
 
-    <ul class="navbar-nav">
-      <% if current_page?(items_path) || current_page?(root_path) %>
-        <li class="nav-item active">
+<nav class="nav-extended pink accent-2">
+  <div class="nav-wrapper">
+    <a class="brand-logo" href="/">Paves Store</a>
+    <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a class="dropdown-button" href="/categories" data-beloworigin="true" data-activates="dropdown-categories">Categories<i class="material-icons right">arrow_drop_down</i></a></li>
+      <% if session[:user_id] %>
+        <% user = current_user %>
+        <li>Logged in as <%= link_to "#{user.username}", dashboard_path %></li>
+        <li class="active">
+          <%= link_to "Logout", login_path, method: "delete" %>
+        </li>
       <% else %>
-        <li class="nav-item">
+        <li class="active">
+          <%= link_to "Login", login_path %>
+        </li>
+        <li class="active">
+          <%= link_to "Sign Up!", new_user_path %>
+        </li>
       <% end %>
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <% if current_page?(categories_path) %>
-        <li class="nav-item dropdown active">
-      <% else %>
-        <li class="nav-item dropdown">
-      <% end %>
-        <a class="nav-link dropdown-toggle" href="/categories" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categories
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <% @categories.each do |category| %>
-            <%= link_to category.title, category_path(category),  class: "dropdown-item"%>
-          <% end %>
-        </div>
-      </li>
       <% if current_page?(cart_path) %>
-        <li class="nav-item active">
+        <li class="active">
       <% else %>
-        <li class="nav-item">
+        <li>
       <% end %>
-        <a class="nav-link" href="/cart">Cart (<%= @cart.total_count %>) </a>
+        <%= link_to "Cart #{@cart.total_count}", cart_path %>
       </li>
     </ul>
-    <ul class="navbar-nav mx-auto">
-      <ul class="search">
-        <%= form_tag(items_path, method: "get", id: "search-items") do %>
-          <%= text_field_tag(:search, params[:search], placeholder: "Search Items") %>
-          <%= submit_tag("Search", name: nil, class: "btn btn-primary") %>
-        <% end %>
-      </ul>
-      <ul class="search">
-        <%= form_tag(categories_path, method: "get", id: "search-categories") do %>
-          <%= text_field_tag(:search, params[:search], placeholder: "Search Category") %>
-          <%= submit_tag("Search", name: nil, class: "btn btn-primary") %>
-        <% end %>
-      </ul>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-        <% if session[:user_id] %>
-          <% user = User.find(session[:user_id]) %>
-          <span class="navbar-text">Logged in as <%= link_to "#{user.username}", dashboard_path %></span>
-          <li class="nav-item active">
-            <%= link_to "Logout", login_path, method: "delete", class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item active">
-            <%= link_to "Login", login_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Sign Up!", new_user_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
+    <ul class="side-nav" id="mobile-menu">
+      <li><a class="dropdown-button-2" href="/categories" data-beloworigin="true" data-activates="dropdown-categories">Categories<i class="material-icons right">arrow_drop_down</i></a></li>
+      <% if session[:user_id] %>
+        <% user = current_user %>
+        <li>Logged in as <%= link_to "#{user.username}", dashboard_path %></li>
+        <li class="active">
+          <%= link_to "Logout", login_path, method: "delete"  %>
+        </li>
+      <% else %>
+        <li class="active">
+          <%= link_to "Login", login_path %>
+        </li>
+        <li class="active">
+          <%= link_to "Sign Up!", new_user_path %>
+        </li>
+      <% end %>
+      <% if current_page?(cart_path) %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "Cart #{@cart.total_count}", cart_path %>
       </li>
     </ul>
   </div>
