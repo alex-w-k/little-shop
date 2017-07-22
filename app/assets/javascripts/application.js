@@ -12,5 +12,6 @@
 //
 //= require rails-ujs
 //= require jquery3
-//= require bootstrap-sprockets
+//= require materialize
+//= require materialize/extras/nouislider
 //= require_tree .
