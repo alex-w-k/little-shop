@@ -7,10 +7,12 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
-  %body
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+
+  %body.black
     = render partial: 'shared/navbar'
     - flash.each do |type, message|
-      = javascript_tag "Materialize.toast('#{message}', 4000, 'rounded')"
-    .container
+      = javascript_tag "Materialize.toast('#{message}', 1000, '#{type}')"
+    .container.black
       = yield
     = render partial: 'shared/footer'

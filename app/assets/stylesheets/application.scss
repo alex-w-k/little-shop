@@ -19,3 +19,11 @@
 @import "materialize/extras/nouislider";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "charges";
+
+.pagination li.active {
+  background-color: #ff4081;
+}
+
+#toast-container .success {
+  background-color: red darken-2
+}
