@@ -3,7 +3,7 @@ lock "3.8.2"
 
 server '130.211.209.193', user: 'deploy', port: 22, roles: %w{web app db}
 
-set :branch, 'setup-capistrano'
+set :branch, 'development'
 
 set :application, "little-shop"
 set :repo_url, "git@github.com:alex-w-k/little-shop.git"
