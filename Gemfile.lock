@@ -65,7 +65,7 @@ GEM
     brakeman (4.0.1)
     breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
-    byebug (9.0.6)
+    byebug (9.1.0)
     capistrano (3.8.2)
       airbrussh (>= 1.0.0)
       i18n
